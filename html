@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine 2026</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Caveat&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+<style>
+body{
+margin:0;
+font-family:'Plus Jakarta Sans',sans-serif;
+background:#f8f6f6;
+overflow:hidden;
+}
+
+.screen{
+position:absolute;
+inset:0;
+display:flex;
+justify-content:center;
+align-items:center;
+transition:.6s;
+}
+
+.hidden{opacity:0;pointer-events:none;transform:scale(.95)}
+
+.btn{
+background:#ef3966;
+color:white;
+padding:1rem 2rem;
+border-radius:999px;
+font-weight:700;
+}
+
+.letter-card{
+background:#ef3966;
+color:white;
+aspect-ratio:1/1;
+border-radius:16px;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+font-weight:bold;
+box-shadow:0 10px 25px rgba(239,57,102,.4);
+}
+
+.page{
+padding:2rem;
+max-width:500px;
+font-family:'Caveat';
+font-size:1.3rem;
+}
+
+.back{
+margin-bottom:1rem;
+color:#ef3966;
+font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+<section id="intro" class="screen">
+<div style="text-align:center">
+<h1 style="font-size:3rem;color:#ef3966">Happy Valentine’s Day 💖</h1>
+<button class="btn" onclick="openLetters()">Open Your Letter</button>
+</div>
+</section>
+
+<!-- GRID -->
+<section id="grid" class="screen hidden">
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;max-width:400px;width:100%;padding:1rem">
+
+<div class="letter-card" onclick="openPage(1)">💌 My Valentine</div>
+<div class="letter-card" onclick="openPage(2)">💗 Madly Yours</div>
+<div class="letter-card" onclick="openPage(3)">🤍 Promise</div>
+<div class="letter-card" onclick="openPage(4)">🕊️ Reassurance</div>
+<div class="letter-card" onclick="openPage(5)">😌 Flirty</div>
+<div class="letter-card" onclick="openPage(6)">🥹 Truth</div>
+<div class="letter-card" onclick="openPage(7)">🌱 Support</div>
+<div class="letter-card" onclick="openPage(8)">💖 Secret</div>
+
+</div>
+</section>
+
+<!-- LETTER PAGES -->
+<section id="page1" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
+<p>My pretty wife, happy Valentine’s Day. I don’t think love is supposed to be proven in one day, or in gifts, or in big gestures. I think love is proven in choosing the same person over and over again...</p>
+</div></section>
+
+<section id="page2" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
+<p>I don’t remember the exact moment I fell for you... I’m deeply, stupidly, permanently in love with you.</p>
+</div></section>
+
+<section id="page3" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
+<p>Muh lady, I’m working on myself for a reason... You are one of the biggest reasons I have goals.</p>
+</div></section>
+
+<section id="page4" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
+<p>My luvvv, I know my past has hurt you... What I want is you. Only you.</p>
+</div></section>
+
+<section id="page5" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
+<p>Can we talk about how unfairly pretty you are?...</p>
+</div></section>
+
+<section id="page6" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
+<p>Sometimes I sit quietly and think about you, and my chest just feels full...</p>
+</div></section>
+
+<section id="page7" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
+<p>Babe, I want to see you win in life...</p>
+</div></section>
+
+<section id="page8" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
+<p>You’re my Valentine, my best friend, my pretty wife, my safe place, my future...</p>
+</div></section>
+
+<script>
+let current="intro";
+
+function show(id){
+document.getElementById(current).classList.add("hidden");
+document.getElementById(id).classList.remove("hidden");
+current=id;
+}
+
+function openLetters(){show("grid")}
+function openPage(n){show("page"+n)}
+function back(){show("grid")}
+</script>
+
+</body>
+</html>
