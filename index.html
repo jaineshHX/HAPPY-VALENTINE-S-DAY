@@ -25,7 +25,6 @@ body{
   padding:1.5rem;
   box-sizing:border-box;
   overflow-y:auto;
-  transition:0.4s;
 }
 .hidden{display:none;}
 
@@ -109,12 +108,6 @@ body{
   color:#ef3966;
 }
 
-/* CENTER 7TH CARD */
-.card-7{
-  grid-column:1 / -1;
-  justify-self:center;
-}
-
 /* HEART */
 .heart-wrap{
   margin-top:3rem;
@@ -193,7 +186,7 @@ body{
     <div class="card" onclick="openLetter(4)">🕊️ Reassurance</div>
     <div class="card" onclick="openLetter(5)">😌 Flirty</div>
     <div class="card" onclick="openLetter(6)">🥹 Truth</div>
-    <div class="card card-7" onclick="openLetter(7)">🌱 Support</div>
+    <div class="card" onclick="openLetter(7)">🌱 Support</div>
   </div>
 
   <div class="heart-wrap">
@@ -237,9 +230,16 @@ function checkHeart(){
   if(read.every(v=>v)){
     let heart = document.getElementById("secretHeart");
     heart.style.background="red";
-    // Update pseudo elements by adding inline style
     heart.style.setProperty('--before-color','red');
     heart.style.setProperty('--after-color','red');
+    heart.style.transition="0.5s";
+    // Also update pseudo elements via JS trick:
+    heart.style.setProperty("background","red");
+    // For the before/after we can also just remove the pseudo elements and rely on main heart
+    heart.innerHTML = ''; 
+    heart.style.borderRadius = '50%';
+    heart.style.width = '120px';
+    heart.style.height = '120px';
   }
 }
 
