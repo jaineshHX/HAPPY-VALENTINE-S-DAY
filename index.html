@@ -17,20 +17,16 @@ background:#f8f6f6;
 overflow:hidden;
 }
 
+/* SCREENS */
 .screen{
 position:absolute;
 inset:0;
 display:flex;
 justify-content:center;
 align-items:center;
-transition:opacity .6s ease, transform .6s ease;
+transition:.6s;
 }
-
-.hidden{
-opacity:0;
-pointer-events:none;
-transform:scale(.96);
-}
+.hidden{opacity:0;pointer-events:none;transform:scale(.96)}
 
 /* GRID */
 .grid{
@@ -54,10 +50,26 @@ text-align:center;
 font-weight:bold;
 box-shadow:0 12px 25px rgba(239,57,102,.4);
 cursor:pointer;
+position:relative;
 transition:.3s;
 }
 
 .card:active{transform:scale(.95)}
+
+/* READ EFFECT */
+.card.read{
+background:#ffd6e3;
+color:#ef3966;
+}
+
+.card.read::after{
+content:"✓";
+position:absolute;
+top:8px;
+right:10px;
+font-size:1rem;
+color:#ef3966;
+}
 
 /* LETTER PAGE */
 .page{
@@ -73,12 +85,7 @@ from{opacity:0;transform:translateY(10px)}
 to{opacity:1;transform:translateY(0)}
 }
 
-.back{
-color:#ef3966;
-font-weight:bold;
-margin-bottom:1rem;
-cursor:pointer;
-}
+.back{color:#ef3966;font-weight:bold;margin-bottom:1rem}
 
 /* HEART */
 .heart-wrap{
@@ -94,12 +101,9 @@ height:130px;
 background:#ef3966;
 position:relative;
 transform:rotate(-45deg);
-cursor:pointer;
-transition:.6s;
 }
 
-.heart::before,
-.heart::after{
+.heart:before,.heart:after{
 content:'';
 position:absolute;
 width:140px;
@@ -108,10 +112,9 @@ background:#ef3966;
 border-radius:50%;
 }
 
-.heart::before{top:-70px;left:0}
-.heart::after{left:70px;top:0}
+.heart:before{top:-70px}
+.heart:after{left:70px}
 
-/* RIBBON */
 .ribbon{
 position:absolute;
 width:160px;
@@ -128,28 +131,28 @@ color:white;
 font-weight:bold;
 }
 
-/* UNLOCKED EFFECT */
-.unlocked .heart{
-animation:pulse 1.5s infinite;
-box-shadow:
-0 0 20px rgba(239,57,102,.6),
-0 0 40px rgba(239,57,102,.6),
-0 0 80px rgba(239,57,102,.5);
-}
-
 .unlocked .ribbon{
 transform:rotate(45deg) translateX(220px);
 opacity:0;
 }
 
+.unlocked .heart{
+animation:pulse 1.5s infinite;
+box-shadow:0 0 20px #ef3966,0 0 40px #ef3966;
+}
+
 @keyframes pulse{
-0%,100%{transform:rotate(-45deg) scale(1)}
 50%{transform:rotate(-45deg) scale(1.05)}
 }
+
+/* AUDIO */
+audio{display:none}
 </style>
 </head>
 
 <body>
+
+<audio id="flip" src="https://assets.mixkit.co/sfx/preview/mixkit-page-flip-1104.mp3"></audio>
 
 <!-- INTRO -->
 <section id="intro" class="screen">
@@ -180,9 +183,7 @@ Open Your Letters
 
 <div class="heart-wrap">
 <div id="secretHeart" onclick="openSecret()">
-<div class="heart">
-<div class="ribbon">LOCKED</div>
-</div>
+<div class="heart"><div class="ribbon">LOCKED</div></div>
 </div>
 </div>
 
@@ -190,38 +191,16 @@ Open Your Letters
 </section>
 
 <!-- LETTERS -->
-<section id="l1" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
-My pretty wife, happy Valentine’s Day. I don’t think love is supposed to be proven in one day, or in gifts, or in big gestures. I think love is proven in choosing the same person over and over again...
-</div></section>
-
-<section id="l2" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
-I don’t remember the exact moment I fell for you... I’m deeply, stupidly, permanently in love with you.
-</div></section>
-
-<section id="l3" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
-Muh lady, I’m working on myself for a reason... You are one of the biggest reasons I have goals.
-</div></section>
-
-<section id="l4" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
-My luvvv, I know my past has hurt you... What I want is you. Only you.
-</div></section>
-
-<section id="l5" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
-Can we talk about how unfairly pretty you are?...
-</div></section>
-
-<section id="l6" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
-Sometimes I sit quietly and think about you, and my chest just feels full...
-</div></section>
-
-<section id="l7" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
-Babe, I want to see you win in life...
-</div></section>
+<section id="l1" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>My pretty wife, happy Valentine’s Day...</div></section>
+<section id="l2" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>I’m deeply, stupidly, permanently in love with you.</div></section>
+<section id="l3" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>You are one of the biggest reasons I have goals.</div></section>
+<section id="l4" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>What I want is you. Only you.</div></section>
+<section id="l5" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>You’re unfairly pretty.</div></section>
+<section id="l6" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>You’ve become my comfort.</div></section>
+<section id="l7" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>I want to see you win in life.</div></section>
 
 <!-- SECRET -->
-<section id="secret" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
-You’re my Valentine, my best friend, my pretty wife, my safe place, my future...
-</div></section>
+<section id="secret" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>You have my heart. All of it.</div></section>
 
 <script>
 let current="intro";
@@ -234,12 +213,23 @@ current=id;
 }
 
 function openLetter(n){
+document.getElementById("flip").play();
 read[n-1]=true;
+document.querySelectorAll(".card")[n-1].classList.add("read");
+updateGlow();
 show("l"+n);
 checkUnlock();
 }
 
 function back(){show("grid")}
+
+function updateGlow(){
+let count=read.filter(v=>v).length;
+document.querySelectorAll(".card.read").forEach(c=>{
+c.style.boxShadow=`0 0 ${15+count*5}px rgba(239,57,102,.6),
+0 0 ${30+count*10}px rgba(239,57,102,.5)`;
+});
+}
 
 function checkUnlock(){
 if(read.every(v=>v)){
