@@ -17,6 +17,24 @@ background:#f8f6f6;
 overflow:hidden;
 }
 
+/* TOP MESSAGE */
+#topMessage{
+position:fixed;
+top:12px;
+left:50%;
+transform:translateX(-50%);
+background:rgba(255,182,193,0.85);
+padding:8px 16px;
+border-radius:999px;
+font-size:0.75rem;
+color:#ef3966;
+font-weight:600;
+box-shadow:0 0 15px rgba(239,57,102,.4);
+z-index:999;
+text-align:center;
+max-width:90%;
+}
+
 /* SCREENS */
 .screen{
 position:absolute;
@@ -56,7 +74,6 @@ transition:.3s;
 
 .card:active{transform:scale(.95)}
 
-/* READ EFFECT */
 .card.read{
 background:#ffd6e3;
 color:#ef3966;
@@ -151,6 +168,11 @@ audio{display:none}
 </head>
 
 <body>
+
+<!-- TOP MESSAGE -->
+<div id="topMessage">
+im sorry baby for being late with this but all these are for you muh pretty lady 💗
+</div>
 
 <audio id="flip" src="https://assets.mixkit.co/sfx/preview/mixkit-page-flip-1104.mp3"></audio>
 
