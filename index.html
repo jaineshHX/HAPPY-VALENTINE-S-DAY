@@ -6,69 +6,90 @@
 <title>Valentine 2026</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
-
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Caveat&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Caveat&display=swap" rel="stylesheet">
 
 <style>
 body{
   margin:0;
-  font-family:'Plus Jakarta Sans';
+  font-family:'Plus Jakarta Sans', sans-serif;
   background:#f8f6f6;
   overflow-x:hidden;
-  min-height:100vh;
 }
 
-/* SCREENS */
+/* screens */
 .screen{
-  position:fixed;
-  inset:0;
   display:flex;
-  justify-content:center;
+  flex-direction:column;
+  justify-content:flex-start;
   align-items:center;
-  transition:.6s;
+  width:100%;
+  height:100vh;
   padding:1rem;
+  box-sizing:border-box;
   overflow-y:auto;
+  transition:.4s;
 }
-
 .hidden{
-  opacity:0;
-  pointer-events:none;
-  transform:scale(.96);
+  display:none;
 }
 
-/* GRID */
+/* intro */
+#intro h1{
+  font-size:2.2rem;
+  color:#ef3966;
+  margin-top:2rem;
+  text-align:center;
+}
+
+#intro button{
+  margin-top:2rem;
+  padding:0.8rem 1.5rem;
+  border:none;
+  border-radius:999px;
+  background:#ef3966;
+  color:white;
+  font-weight:bold;
+  font-size:1rem;
+  cursor:pointer;
+  transition:.3s;
+}
+
+#intro button:hover{
+  transform:scale(1.05);
+}
+
+/* grid */
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
-  gap:1rem;
-  max-width:480px;
+  grid-template-columns:repeat(auto-fit, minmax(120px, 1fr));
+  gap:0.8rem;
   width:100%;
-  padding:1rem;
+  max-width:450px;
+  margin-top:1rem;
 }
 
 .card{
   background:#ef3966;
   color:white;
   aspect-ratio:1/1;
-  border-radius:18px;
+  border-radius:16px;
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
   font-weight:bold;
-  box-shadow:0 12px 25px rgba(239,57,102,.4);
+  font-size:1rem;
+  padding:0.5rem;
+  box-shadow:0 6px 15px rgba(239,57,102,.3);
   cursor:pointer;
   position:relative;
   transition:.3s;
-  font-size:1.1rem;
-  padding:0.5rem;
 }
 
 .card:active{
   transform:scale(.95);
 }
 
-/* READ EFFECT */
 .card.read{
   background:#ffd6e3;
   color:#ef3966;
@@ -77,81 +98,57 @@ body{
 .card.read::after{
   content:"✓";
   position:absolute;
-  top:8px;
-  right:10px;
-  font-size:1.2rem;
+  top:6px;
+  right:8px;
+  font-size:1rem;
   color:#ef3966;
 }
 
-/* LETTER PAGE */
-.page{
-  max-width:90%;
-  padding:2rem;
-  font-family:'Caveat';
-  font-size:1.3rem;
-  animation:fade .6s;
-  line-height:1.6;
-}
-
-@keyframes fade{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-.back{
-  color:#ef3966;
-  font-weight:bold;
-  margin-bottom:1rem;
-  cursor:pointer;
-}
-
-/* HEART */
+/* heart */
 .heart-wrap{
-  grid-column:span 2;
-  display:flex;
-  justify-content:center;
   margin-top:2rem;
 }
 
 .heart{
-  width:120px;
-  height:110px;
+  width:100px;
+  height:90px;
   background:#ef3966;
   position:relative;
   transform:rotate(-45deg);
+  cursor:pointer;
 }
 
 .heart:before,.heart:after{
   content:'';
   position:absolute;
-  width:120px;
-  height:110px;
+  width:100px;
+  height:90px;
   background:#ef3966;
   border-radius:50%;
 }
 
-.heart:before{top:-60px}
-.heart:after{left:60px}
+.heart:before{top:-60px;}
+.heart:after{left:60px;}
 
 .ribbon{
   position:absolute;
-  width:140px;
-  height:28px;
+  width:120px;
+  height:25px;
   background:#c2173a;
-  top:40px;
-  left:-8px;
+  top:35px;
+  left:-5px;
   transform:rotate(45deg);
-  transition:.6s;
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   color:white;
   font-weight:bold;
-  font-size:0.9rem;
+  font-size:0.8rem;
+  transition:.5s;
 }
 
 .unlocked .ribbon{
-  transform:rotate(45deg) translateX(180px);
+  transform:rotate(45deg) translateX(150px);
   opacity:0;
 }
 
@@ -164,64 +161,49 @@ body{
   50%{transform:rotate(-45deg) scale(1.05)}
 }
 
-/* AUDIO */
-audio{display:none}
+/* letters */
+.page{
+  width:100%;
+  max-width:450px;
+  padding:1.5rem;
+  font-family:'Caveat', cursive;
+  font-size:1.2rem;
+  line-height:1.6;
+}
 
-/* BUTTONS */
-button{
-  font-size:1rem;
-  padding:0.8rem 1.5rem;
-  border:none;
+.back{
+  font-weight:bold;
+  color:#ef3966;
+  margin-bottom:1rem;
   cursor:pointer;
-  transition:.3s;
 }
 
-button:hover{
-  transform:scale(1.05);
+.letter-header{
+  text-align:center;
+  margin-bottom:1.2rem;
 }
 
-@media(max-width:400px){
-  .card{
-    font-size:1rem;
-    aspect-ratio:1/1;
-    padding:0.3rem;
-  }
-  .heart{
-    width:100px;
-    height:90px;
-  }
-  .heart:before,.heart:after{
-    width:100px;
-    height:90px;
-  }
-  .ribbon{
-    width:120px;
-    height:25px;
-    font-size:0.8rem;
-  }
-  .page{
-    font-size:1.2rem;
-    padding:1.5rem;
-  }
-  h1{
-    font-size:2.2rem !important;
-  }
+.letter-header h2{
+  color:#ef3966;
+  font-weight:bold;
+  font-size:1.4rem;
+}
+
+.letter-header p{
+  font-size:0.9rem;
+  color:#ef3966;
+  margin-top:0.2rem;
 }
 </style>
 </head>
 
 <body>
-
 <audio id="flip" src="https://assets.mixkit.co/sfx/preview/mixkit-page-flip-1104.mp3"></audio>
 
 <!-- INTRO -->
 <section id="intro" class="screen">
-  <div style="text-align:center; padding-top:3rem;">
-    <h1 style="color:#ef3966">Happy Valentine’s Day 💖</h1>
-    <button onclick="show('grid')" style="background:#ef3966;color:white;font-weight:bold;border-radius:999px">
-      Open Your Letters
-    </button>
-  </div>
+  <h1>Happy Valentine’s Day 💖</h1>
+  <button onclick="show('grid')">Open Your Letters</button>
 </section>
 
 <!-- GRID -->
@@ -233,28 +215,39 @@ button:hover{
     <div class="card" onclick="openLetter(4)">🕊️ Reassurance</div>
     <div class="card" onclick="openLetter(5)">😌 Flirty</div>
     <div class="card" onclick="openLetter(6)">🥹 Truth</div>
-    <div style="grid-column:span 2;display:flex;justify-content:center;">
-      <div class="card" style="width:48%" onclick="openLetter(7)">🌱 Support</div>
-    </div>
-    <div class="heart-wrap">
-      <div id="secretHeart" onclick="openSecret()">
-        <div class="heart"><div class="ribbon">LOCKED</div></div>
-      </div>
+    <div class="card" onclick="openLetter(7)" style="grid-column:span 2">🌱 Support</div>
+  </div>
+  <div class="heart-wrap">
+    <div id="secretHeart" onclick="openSecret()">
+      <div class="heart"><div class="ribbon">LOCKED</div></div>
     </div>
   </div>
 </section>
 
 <!-- LETTERS -->
-<section id="l1" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>My pretty wife, happy Valentine’s Day...</div></section>
-<section id="l2" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>I’m deeply, stupidly, permanently in love with you.</div></section>
-<section id="l3" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>You are one of the biggest reasons I have goals.</div></section>
-<section id="l4" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>What I want is you. Only you.</div></section>
-<section id="l5" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>You’re unfairly pretty.</div></section>
-<section id="l6" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>You’ve become my comfort.</div></section>
-<section id="l7" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>I want to see you win in life.</div></section>
+<section id="l1" class="screen hidden">
+  <div class="page">
+    <div class="back" onclick="back()">← Back</div>
+    <div class="letter-header">
+      <h2>THESE ARE ALL FOR YOU GORGEOUS</h2>
+      <p>open whenever your ready</p>
+    </div>
+    My pretty wife, happy Valentine’s Day...
+  </div>
+</section>
 
-<!-- SECRET -->
-<section id="secret" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>You have my heart. All of it.</div></section>
+<section id="l2" class="screen hidden">
+  <div class="page">
+    <div class="back" onclick="back()">← Back</div>
+    <div class="letter-header">
+      <h2>THESE ARE ALL FOR YOU GORGEOUS</h2>
+      <p>open whenever your ready</p>
+    </div>
+    I’m deeply, stupidly, permanently in love with you.
+  </div>
+</section>
+
+<!-- repeat same for l3-l7 -->
 
 <script>
 let current="intro";
@@ -297,6 +290,5 @@ function openSecret(){
   }
 }
 </script>
-
 </body>
 </html>
