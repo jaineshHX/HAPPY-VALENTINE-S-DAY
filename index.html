@@ -32,6 +32,7 @@ pointer-events:none;
 transform:scale(.96);
 }
 
+/* GRID */
 .grid{
 display:grid;
 grid-template-columns:repeat(2,1fr);
@@ -58,6 +59,7 @@ transition:.3s;
 
 .card:active{transform:scale(.95)}
 
+/* LETTER PAGE */
 .page{
 max-width:500px;
 padding:2rem;
@@ -78,13 +80,12 @@ margin-bottom:1rem;
 cursor:pointer;
 }
 
-/* HEART SECRET */
-
+/* HEART */
 .heart-wrap{
 grid-column:span 2;
 display:flex;
 justify-content:center;
-margin-top:1rem;
+margin-top:2.5rem;
 }
 
 .heart{
@@ -94,8 +95,6 @@ background:#ef3966;
 position:relative;
 transform:rotate(-45deg);
 cursor:pointer;
-opacity:.6;
-filter:grayscale(1);
 transition:.6s;
 }
 
@@ -112,6 +111,7 @@ border-radius:50%;
 .heart::before{top:-70px;left:0}
 .heart::after{left:70px;top:0}
 
+/* RIBBON */
 .ribbon{
 position:absolute;
 width:160px;
@@ -128,14 +128,17 @@ color:white;
 font-weight:bold;
 }
 
+/* UNLOCKED EFFECT */
 .unlocked .heart{
-opacity:1;
-filter:none;
 animation:pulse 1.5s infinite;
+box-shadow:
+0 0 20px rgba(239,57,102,.6),
+0 0 40px rgba(239,57,102,.6),
+0 0 80px rgba(239,57,102,.5);
 }
 
 .unlocked .ribbon{
-transform:rotate(45deg) translateX(200px);
+transform:rotate(45deg) translateX(220px);
 opacity:0;
 }
 
@@ -143,7 +146,6 @@ opacity:0;
 0%,100%{transform:rotate(-45deg) scale(1)}
 50%{transform:rotate(-45deg) scale(1.05)}
 }
-
 </style>
 </head>
 
@@ -153,22 +155,28 @@ opacity:0;
 <section id="intro" class="screen">
 <div style="text-align:center">
 <h1 style="font-size:3rem;color:#ef3966">Happy Valentine’s Day 💖</h1>
-<button onclick="show('grid')" style="padding:1rem 2rem;border-radius:999px;background:#ef3966;color:white;font-weight:bold">Open Your Letters</button>
+<button onclick="show('grid')" style="padding:1rem 2rem;border-radius:999px;background:#ef3966;color:white;font-weight:bold">
+Open Your Letters
+</button>
 </div>
 </section>
 
 <!-- GRID -->
 <section id="grid" class="screen hidden">
-
 <div class="grid">
 
 <div class="card" onclick="openLetter(1)">💌 My Valentine</div>
 <div class="card" onclick="openLetter(2)">💗 Madly Yours</div>
+
 <div class="card" onclick="openLetter(3)">🤍 Promise</div>
 <div class="card" onclick="openLetter(4)">🕊️ Reassurance</div>
+
 <div class="card" onclick="openLetter(5)">😌 Flirty</div>
 <div class="card" onclick="openLetter(6)">🥹 Truth</div>
-<div class="card" onclick="openLetter(7)">🌱 Support</div>
+
+<div style="grid-column:span 2;display:flex;justify-content:center;">
+<div class="card" style="width:48%" onclick="openLetter(7)">🌱 Support</div>
+</div>
 
 <div class="heart-wrap">
 <div id="secretHeart" onclick="openSecret()">
@@ -181,7 +189,7 @@ opacity:0;
 </div>
 </section>
 
-<!-- LETTER PAGES -->
+<!-- LETTERS -->
 <section id="l1" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
 My pretty wife, happy Valentine’s Day. I don’t think love is supposed to be proven in one day, or in gifts, or in big gestures. I think love is proven in choosing the same person over and over again...
 </div></section>
