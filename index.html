@@ -12,7 +12,7 @@
 <style>
 body{
 margin:0;
-font-family:'Plus Jakarta Sans',sans-serif;
+font-family:'Plus Jakarta Sans';
 background:#f8f6f6;
 overflow:hidden;
 }
@@ -23,44 +23,127 @@ inset:0;
 display:flex;
 justify-content:center;
 align-items:center;
-transition:.6s;
+transition:opacity .6s ease, transform .6s ease;
 }
 
-.hidden{opacity:0;pointer-events:none;transform:scale(.95)}
-
-.btn{
-background:#ef3966;
-color:white;
-padding:1rem 2rem;
-border-radius:999px;
-font-weight:700;
+.hidden{
+opacity:0;
+pointer-events:none;
+transform:scale(.96);
 }
 
-.letter-card{
+.grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:1rem;
+max-width:420px;
+width:100%;
+padding:1rem;
+}
+
+.card{
 background:#ef3966;
 color:white;
 aspect-ratio:1/1;
-border-radius:16px;
+border-radius:18px;
 display:flex;
-justify-content:center;
 align-items:center;
+justify-content:center;
 text-align:center;
 font-weight:bold;
-box-shadow:0 10px 25px rgba(239,57,102,.4);
+box-shadow:0 12px 25px rgba(239,57,102,.4);
+cursor:pointer;
+transition:.3s;
 }
 
+.card:active{transform:scale(.95)}
+
 .page{
-padding:2rem;
 max-width:500px;
+padding:2rem;
 font-family:'Caveat';
-font-size:1.3rem;
+font-size:1.4rem;
+animation:fade .6s;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(10px)}
+to{opacity:1;transform:translateY(0)}
 }
 
 .back{
-margin-bottom:1rem;
 color:#ef3966;
 font-weight:bold;
+margin-bottom:1rem;
+cursor:pointer;
 }
+
+/* HEART SECRET */
+
+.heart-wrap{
+grid-column:span 2;
+display:flex;
+justify-content:center;
+margin-top:1rem;
+}
+
+.heart{
+width:140px;
+height:130px;
+background:#ef3966;
+position:relative;
+transform:rotate(-45deg);
+cursor:pointer;
+opacity:.6;
+filter:grayscale(1);
+transition:.6s;
+}
+
+.heart::before,
+.heart::after{
+content:'';
+position:absolute;
+width:140px;
+height:130px;
+background:#ef3966;
+border-radius:50%;
+}
+
+.heart::before{top:-70px;left:0}
+.heart::after{left:70px;top:0}
+
+.ribbon{
+position:absolute;
+width:160px;
+height:30px;
+background:#c2173a;
+top:45px;
+left:-10px;
+transform:rotate(45deg);
+transition:.6s;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+font-weight:bold;
+}
+
+.unlocked .heart{
+opacity:1;
+filter:none;
+animation:pulse 1.5s infinite;
+}
+
+.unlocked .ribbon{
+transform:rotate(45deg) translateX(200px);
+opacity:0;
+}
+
+@keyframes pulse{
+0%,100%{transform:rotate(-45deg) scale(1)}
+50%{transform:rotate(-45deg) scale(1.05)}
+}
+
 </style>
 </head>
 
@@ -70,61 +153,71 @@ font-weight:bold;
 <section id="intro" class="screen">
 <div style="text-align:center">
 <h1 style="font-size:3rem;color:#ef3966">Happy Valentine’s Day 💖</h1>
-<button class="btn" onclick="openLetters()">Open Your Letter</button>
+<button onclick="show('grid')" style="padding:1rem 2rem;border-radius:999px;background:#ef3966;color:white;font-weight:bold">Open Your Letters</button>
 </div>
 </section>
 
 <!-- GRID -->
 <section id="grid" class="screen hidden">
-<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;max-width:400px;width:100%;padding:1rem">
 
-<div class="letter-card" onclick="openPage(1)">💌 My Valentine</div>
-<div class="letter-card" onclick="openPage(2)">💗 Madly Yours</div>
-<div class="letter-card" onclick="openPage(3)">🤍 Promise</div>
-<div class="letter-card" onclick="openPage(4)">🕊️ Reassurance</div>
-<div class="letter-card" onclick="openPage(5)">😌 Flirty</div>
-<div class="letter-card" onclick="openPage(6)">🥹 Truth</div>
-<div class="letter-card" onclick="openPage(7)">🌱 Support</div>
-<div class="letter-card" onclick="openPage(8)">💖 Secret</div>
+<div class="grid">
+
+<div class="card" onclick="openLetter(1)">💌 My Valentine</div>
+<div class="card" onclick="openLetter(2)">💗 Madly Yours</div>
+<div class="card" onclick="openLetter(3)">🤍 Promise</div>
+<div class="card" onclick="openLetter(4)">🕊️ Reassurance</div>
+<div class="card" onclick="openLetter(5)">😌 Flirty</div>
+<div class="card" onclick="openLetter(6)">🥹 Truth</div>
+<div class="card" onclick="openLetter(7)">🌱 Support</div>
+
+<div class="heart-wrap">
+<div id="secretHeart" onclick="openSecret()">
+<div class="heart">
+<div class="ribbon">LOCKED</div>
+</div>
+</div>
+</div>
 
 </div>
 </section>
 
 <!-- LETTER PAGES -->
-<section id="page1" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
-<p>My pretty wife, happy Valentine’s Day. I don’t think love is supposed to be proven in one day, or in gifts, or in big gestures. I think love is proven in choosing the same person over and over again...</p>
+<section id="l1" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
+My pretty wife, happy Valentine’s Day. I don’t think love is supposed to be proven in one day, or in gifts, or in big gestures. I think love is proven in choosing the same person over and over again...
 </div></section>
 
-<section id="page2" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
-<p>I don’t remember the exact moment I fell for you... I’m deeply, stupidly, permanently in love with you.</p>
+<section id="l2" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
+I don’t remember the exact moment I fell for you... I’m deeply, stupidly, permanently in love with you.
 </div></section>
 
-<section id="page3" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
-<p>Muh lady, I’m working on myself for a reason... You are one of the biggest reasons I have goals.</p>
+<section id="l3" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
+Muh lady, I’m working on myself for a reason... You are one of the biggest reasons I have goals.
 </div></section>
 
-<section id="page4" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
-<p>My luvvv, I know my past has hurt you... What I want is you. Only you.</p>
+<section id="l4" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
+My luvvv, I know my past has hurt you... What I want is you. Only you.
 </div></section>
 
-<section id="page5" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
-<p>Can we talk about how unfairly pretty you are?...</p>
+<section id="l5" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
+Can we talk about how unfairly pretty you are?...
 </div></section>
 
-<section id="page6" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
-<p>Sometimes I sit quietly and think about you, and my chest just feels full...</p>
+<section id="l6" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
+Sometimes I sit quietly and think about you, and my chest just feels full...
 </div></section>
 
-<section id="page7" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
-<p>Babe, I want to see you win in life...</p>
+<section id="l7" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
+Babe, I want to see you win in life...
 </div></section>
 
-<section id="page8" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
-<p>You’re my Valentine, my best friend, my pretty wife, my safe place, my future...</p>
+<!-- SECRET -->
+<section id="secret" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>
+You’re my Valentine, my best friend, my pretty wife, my safe place, my future...
 </div></section>
 
 <script>
 let current="intro";
+let read=[false,false,false,false,false,false,false];
 
 function show(id){
 document.getElementById(current).classList.add("hidden");
@@ -132,9 +225,25 @@ document.getElementById(id).classList.remove("hidden");
 current=id;
 }
 
-function openLetters(){show("grid")}
-function openPage(n){show("page"+n)}
+function openLetter(n){
+read[n-1]=true;
+show("l"+n);
+checkUnlock();
+}
+
 function back(){show("grid")}
+
+function checkUnlock(){
+if(read.every(v=>v)){
+document.getElementById("secretHeart").classList.add("unlocked");
+}
+}
+
+function openSecret(){
+if(document.getElementById("secretHeart").classList.contains("unlocked")){
+show("secret");
+}
+}
 </script>
 
 </body>
