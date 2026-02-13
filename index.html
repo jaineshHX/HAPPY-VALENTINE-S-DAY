@@ -29,12 +29,13 @@ body{
 }
 .hidden{display:none;}
 
-/* INTRO */
+/* intro */
 #intro h1{
   font-size:2.4rem;
   font-weight:800;
   text-align:center;
   margin-top:3rem;
+  font-family:'Caveat', cursive;
 }
 
 #intro button{
@@ -50,25 +51,22 @@ body{
   transition:0.3s;
 }
 
-#intro button:hover{
-  transform:scale(1.05);
-}
+#intro button:hover{transform:scale(1.05);}
 
-/* GRID PAGE HEADER */
+/* GRID HEADER */
 .grid-header{
   text-align:center;
   margin-bottom:1.5rem;
+  font-family:'Caveat', cursive;
 }
 
 .grid-header h2{
   font-size:1.5rem;
   font-weight:800;
-  color:#ef3966;
 }
 
 .grid-header p{
   font-size:0.9rem;
-  color:#ef3966;
   margin-top:0.2rem;
 }
 
@@ -97,6 +95,7 @@ body{
   cursor:pointer;
   transition:0.2s;
   position:relative;
+  font-family:'Caveat', cursive;
 }
 
 .card:active{transform:scale(0.95);}
@@ -110,7 +109,7 @@ body{
   color:#ef3966;
 }
 
-/* CENTERED 7TH CARD */
+/* CENTER 7TH CARD */
 .card-7{
   grid-column:1 / -1;
   justify-self:center;
@@ -125,11 +124,25 @@ body{
 
 .heart{
   width:120px;
-  height:120px;
+  height:110px;
   background:black;
-  border-radius:20px;
+  position:relative;
+  transform:rotate(-45deg);
+  cursor:pointer;
   transition:0.5s;
 }
+
+.heart:before,.heart:after{
+  content:'';
+  position:absolute;
+  width:120px;
+  height:110px;
+  background:black;
+  border-radius:50%;
+}
+
+.heart:before{top:-55px;}
+.heart:after{left:55px;}
 
 /* LETTER PAGE */
 .page{
@@ -151,7 +164,8 @@ body{
 @media(max-width:380px){
   .grid{grid-template-columns:1fr;}
   .card{font-size:0.95rem;}
-  .heart{width:100px;height:100px;}
+  .heart{width:100px;height:90px;}
+  .heart:before,.heart:after{width:100px;height:90px;}
 }
 </style>
 </head>
@@ -183,7 +197,7 @@ body{
   </div>
 
   <div class="heart-wrap">
-    <div id="heart" class="heart"></div>
+    <div id="secretHeart" class="heart" onclick="openSecret()"></div>
   </div>
 </section>
 
@@ -195,6 +209,9 @@ body{
 <section id="l5" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>You’re unfairly pretty.</div></section>
 <section id="l6" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>You’ve become my comfort.</div></section>
 <section id="l7" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>I want to see you win in life.</div></section>
+
+<!-- SECRET LETTER -->
+<section id="secret" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>You have my heart. All of it.</div></section>
 
 <script>
 let current="intro";
@@ -218,7 +235,17 @@ function back(){show("grid")}
 
 function checkHeart(){
   if(read.every(v=>v)){
-    document.getElementById("heart").style.background="red";
+    let heart = document.getElementById("secretHeart");
+    heart.style.background="red";
+    // Update pseudo elements by adding inline style
+    heart.style.setProperty('--before-color','red');
+    heart.style.setProperty('--after-color','red');
+  }
+}
+
+function openSecret(){
+  if(read.every(v=>v)){
+    show("secret");
   }
 }
 </script>
