@@ -11,142 +11,202 @@
 
 <style>
 body{
-margin:0;
-font-family:'Plus Jakarta Sans';
-background:#f8f6f6;
-overflow:hidden;
+  margin:0;
+  font-family:'Plus Jakarta Sans';
+  background:#f8f6f6;
+  overflow-x:hidden;
+  min-height:100vh;
 }
 
 /* SCREENS */
 .screen{
-position:absolute;
-inset:0;
-display:flex;
-justify-content:center;
-align-items:center;
-transition:.6s;
+  position:fixed;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  transition:.6s;
+  padding:1rem;
+  overflow-y:auto;
 }
-.hidden{opacity:0;pointer-events:none;transform:scale(.96)}
+
+.hidden{
+  opacity:0;
+  pointer-events:none;
+  transform:scale(.96);
+}
 
 /* GRID */
 .grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:1rem;
-max-width:420px;
-width:100%;
-padding:1rem;
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
+  gap:1rem;
+  max-width:480px;
+  width:100%;
+  padding:1rem;
 }
 
 .card{
-background:#ef3966;
-color:white;
-aspect-ratio:1/1;
-border-radius:18px;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-font-weight:bold;
-box-shadow:0 12px 25px rgba(239,57,102,.4);
-cursor:pointer;
-position:relative;
-transition:.3s;
+  background:#ef3966;
+  color:white;
+  aspect-ratio:1/1;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-weight:bold;
+  box-shadow:0 12px 25px rgba(239,57,102,.4);
+  cursor:pointer;
+  position:relative;
+  transition:.3s;
+  font-size:1.1rem;
+  padding:0.5rem;
 }
 
-.card:active{transform:scale(.95)}
+.card:active{
+  transform:scale(.95);
+}
 
 /* READ EFFECT */
 .card.read{
-background:#ffd6e3;
-color:#ef3966;
+  background:#ffd6e3;
+  color:#ef3966;
 }
 
 .card.read::after{
-content:"✓";
-position:absolute;
-top:8px;
-right:10px;
-font-size:1rem;
-color:#ef3966;
+  content:"✓";
+  position:absolute;
+  top:8px;
+  right:10px;
+  font-size:1.2rem;
+  color:#ef3966;
 }
 
 /* LETTER PAGE */
 .page{
-max-width:500px;
-padding:2rem;
-font-family:'Caveat';
-font-size:1.4rem;
-animation:fade .6s;
+  max-width:90%;
+  padding:2rem;
+  font-family:'Caveat';
+  font-size:1.3rem;
+  animation:fade .6s;
+  line-height:1.6;
 }
 
 @keyframes fade{
-from{opacity:0;transform:translateY(10px)}
-to{opacity:1;transform:translateY(0)}
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
-.back{color:#ef3966;font-weight:bold;margin-bottom:1rem}
+.back{
+  color:#ef3966;
+  font-weight:bold;
+  margin-bottom:1rem;
+  cursor:pointer;
+}
 
 /* HEART */
 .heart-wrap{
-grid-column:span 2;
-display:flex;
-justify-content:center;
-margin-top:2.5rem;
+  grid-column:span 2;
+  display:flex;
+  justify-content:center;
+  margin-top:2rem;
 }
 
 .heart{
-width:140px;
-height:130px;
-background:#ef3966;
-position:relative;
-transform:rotate(-45deg);
+  width:120px;
+  height:110px;
+  background:#ef3966;
+  position:relative;
+  transform:rotate(-45deg);
 }
 
 .heart:before,.heart:after{
-content:'';
-position:absolute;
-width:140px;
-height:130px;
-background:#ef3966;
-border-radius:50%;
+  content:'';
+  position:absolute;
+  width:120px;
+  height:110px;
+  background:#ef3966;
+  border-radius:50%;
 }
 
-.heart:before{top:-70px}
-.heart:after{left:70px}
+.heart:before{top:-60px}
+.heart:after{left:60px}
 
 .ribbon{
-position:absolute;
-width:160px;
-height:30px;
-background:#c2173a;
-top:45px;
-left:-10px;
-transform:rotate(45deg);
-transition:.6s;
-display:flex;
-align-items:center;
-justify-content:center;
-color:white;
-font-weight:bold;
+  position:absolute;
+  width:140px;
+  height:28px;
+  background:#c2173a;
+  top:40px;
+  left:-8px;
+  transform:rotate(45deg);
+  transition:.6s;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-weight:bold;
+  font-size:0.9rem;
 }
 
 .unlocked .ribbon{
-transform:rotate(45deg) translateX(220px);
-opacity:0;
+  transform:rotate(45deg) translateX(180px);
+  opacity:0;
 }
 
 .unlocked .heart{
-animation:pulse 1.5s infinite;
-box-shadow:0 0 20px #ef3966,0 0 40px #ef3966;
+  animation:pulse 1.5s infinite;
+  box-shadow:0 0 15px #ef3966,0 0 30px #ef3966;
 }
 
 @keyframes pulse{
-50%{transform:rotate(-45deg) scale(1.05)}
+  50%{transform:rotate(-45deg) scale(1.05)}
 }
 
 /* AUDIO */
 audio{display:none}
+
+/* BUTTONS */
+button{
+  font-size:1rem;
+  padding:0.8rem 1.5rem;
+  border:none;
+  cursor:pointer;
+  transition:.3s;
+}
+
+button:hover{
+  transform:scale(1.05);
+}
+
+@media(max-width:400px){
+  .card{
+    font-size:1rem;
+    aspect-ratio:1/1;
+    padding:0.3rem;
+  }
+  .heart{
+    width:100px;
+    height:90px;
+  }
+  .heart:before,.heart:after{
+    width:100px;
+    height:90px;
+  }
+  .ribbon{
+    width:120px;
+    height:25px;
+    font-size:0.8rem;
+  }
+  .page{
+    font-size:1.2rem;
+    padding:1.5rem;
+  }
+  h1{
+    font-size:2.2rem !important;
+  }
+}
 </style>
 </head>
 
@@ -156,38 +216,32 @@ audio{display:none}
 
 <!-- INTRO -->
 <section id="intro" class="screen">
-<div style="text-align:center">
-<h1 style="font-size:3rem;color:#ef3966">Happy Valentine’s Day 💖</h1>
-<button onclick="show('grid')" style="padding:1rem 2rem;border-radius:999px;background:#ef3966;color:white;font-weight:bold">
-Open Your Letters
-</button>
-</div>
+  <div style="text-align:center; padding-top:3rem;">
+    <h1 style="color:#ef3966">Happy Valentine’s Day 💖</h1>
+    <button onclick="show('grid')" style="background:#ef3966;color:white;font-weight:bold;border-radius:999px">
+      Open Your Letters
+    </button>
+  </div>
 </section>
 
 <!-- GRID -->
 <section id="grid" class="screen hidden">
-<div class="grid">
-
-<div class="card" onclick="openLetter(1)">💌 My Valentine</div>
-<div class="card" onclick="openLetter(2)">💗 Madly Yours</div>
-
-<div class="card" onclick="openLetter(3)">🤍 Promise</div>
-<div class="card" onclick="openLetter(4)">🕊️ Reassurance</div>
-
-<div class="card" onclick="openLetter(5)">😌 Flirty</div>
-<div class="card" onclick="openLetter(6)">🥹 Truth</div>
-
-<div style="grid-column:span 2;display:flex;justify-content:center;">
-<div class="card" style="width:48%" onclick="openLetter(7)">🌱 Support</div>
-</div>
-
-<div class="heart-wrap">
-<div id="secretHeart" onclick="openSecret()">
-<div class="heart"><div class="ribbon">LOCKED</div></div>
-</div>
-</div>
-
-</div>
+  <div class="grid">
+    <div class="card" onclick="openLetter(1)">💌 My Valentine</div>
+    <div class="card" onclick="openLetter(2)">💗 Madly Yours</div>
+    <div class="card" onclick="openLetter(3)">🤍 Promise</div>
+    <div class="card" onclick="openLetter(4)">🕊️ Reassurance</div>
+    <div class="card" onclick="openLetter(5)">😌 Flirty</div>
+    <div class="card" onclick="openLetter(6)">🥹 Truth</div>
+    <div style="grid-column:span 2;display:flex;justify-content:center;">
+      <div class="card" style="width:48%" onclick="openLetter(7)">🌱 Support</div>
+    </div>
+    <div class="heart-wrap">
+      <div id="secretHeart" onclick="openSecret()">
+        <div class="heart"><div class="ribbon">LOCKED</div></div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- LETTERS -->
@@ -207,40 +261,40 @@ let current="intro";
 let read=[false,false,false,false,false,false,false];
 
 function show(id){
-document.getElementById(current).classList.add("hidden");
-document.getElementById(id).classList.remove("hidden");
-current=id;
+  document.getElementById(current).classList.add("hidden");
+  document.getElementById(id).classList.remove("hidden");
+  current=id;
 }
 
 function openLetter(n){
-document.getElementById("flip").play();
-read[n-1]=true;
-document.querySelectorAll(".card")[n-1].classList.add("read");
-updateGlow();
-show("l"+n);
-checkUnlock();
+  document.getElementById("flip").play();
+  read[n-1]=true;
+  document.querySelectorAll(".card")[n-1].classList.add("read");
+  updateGlow();
+  show("l"+n);
+  checkUnlock();
 }
 
 function back(){show("grid")}
 
 function updateGlow(){
-let count=read.filter(v=>v).length;
-document.querySelectorAll(".card.read").forEach(c=>{
-c.style.boxShadow=`0 0 ${15+count*5}px rgba(239,57,102,.6),
-0 0 ${30+count*10}px rgba(239,57,102,.5)`;
-});
+  let count=read.filter(v=>v).length;
+  document.querySelectorAll(".card.read").forEach(c=>{
+    c.style.boxShadow=`0 0 ${15+count*5}px rgba(239,57,102,.6),
+    0 0 ${30+count*10}px rgba(239,57,102,.5)`;
+  });
 }
 
 function checkUnlock(){
-if(read.every(v=>v)){
-document.getElementById("secretHeart").classList.add("unlocked");
-}
+  if(read.every(v=>v)){
+    document.getElementById("secretHeart").classList.add("unlocked");
+  }
 }
 
 function openSecret(){
-if(document.getElementById("secretHeart").classList.contains("unlocked")){
-show("secret");
-}
+  if(document.getElementById("secretHeart").classList.contains("unlocked")){
+    show("secret");
+  }
 }
 </script>
 
