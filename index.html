@@ -12,6 +12,7 @@ body{
   font-family:'Plus Jakarta Sans', sans-serif;
   background:#fff0f5;
   color:#ef3966;
+  overflow-x:hidden;
 }
 
 /* GENERAL SCREEN */
@@ -54,6 +55,23 @@ body{
   transform:scale(1.05);
 }
 
+/* GRID PAGE */
+.grid-header{
+  text-align:center;
+  margin-bottom:1.5rem;
+}
+
+.grid-header h2{
+  font-size:1.6rem;
+  font-weight:800;
+}
+
+.grid-header p{
+  font-size:0.95rem;
+  margin-top:0.2rem;
+  color:#ef3966;
+}
+
 /* GRID CARDS */
 .grid{
   display:grid;
@@ -61,7 +79,6 @@ body{
   gap:1rem;
   width:100%;
   max-width:400px;
-  margin-top:2rem;
 }
 
 .card{
@@ -94,60 +111,68 @@ body{
 
 /* HEART */
 .heart-wrap{
-  margin-top:2.5rem;
+  margin-top:3rem;
   display:flex;
   justify-content:center;
+  position:relative;
 }
 
 .heart{
-  width:100px;
-  height:90px;
+  width:140px;
+  height:130px;
   background:#ef3966;
   position:relative;
   transform:rotate(-45deg);
-  cursor:pointer;
+  border-radius:8px;
+  box-shadow:0 5px 20px rgba(239,57,102,0.3);
 }
 
 .heart:before,.heart:after{
   content:'';
   position:absolute;
-  width:100px;
-  height:90px;
+  width:140px;
+  height:130px;
   background:#ef3966;
   border-radius:50%;
 }
-.heart:before{top:-60px;}
-.heart:after{left:60px;}
+.heart:before{top:-70px;}
+.heart:after{left:70px;}
 
-.ribbon{
+/* CHAIN AROUND HEART */
+.chain{
   position:absolute;
-  width:120px;
-  height:25px;
-  background:#c2173a;
-  top:35px;
-  left:-5px;
-  transform:rotate(45deg);
+  width:180px;
+  height:50px;
+  top:-20px;
+  left:-20px;
+  border-top:4px solid #555;
+  border-bottom:4px solid #555;
+  border-radius:10px;
   display:flex;
-  justify-content:center;
-  align-items:center;
-  font-weight:bold;
-  font-size:0.8rem;
-  color:white;
-  transition:0.5s;
+  justify-content:space-between;
+  padding:0 5px;
+  box-sizing:border-box;
+  opacity:0.8;
 }
 
-.unlocked .ribbon{
-  transform:rotate(45deg) translateX(150px);
-  opacity:0;
+.chain span{
+  display:block;
+  width:6px;
+  height:12px;
+  background:#555;
+  border-radius:2px;
+  transform:rotate(45deg);
 }
 
-.unlocked .heart{
-  animation:pulse 1.5s infinite;
-  box-shadow:0 0 15px #ef3966,0 0 30px #ef3966;
+/* chain break animation */
+.break{
+  animation:breakChain 1s forwards;
 }
 
-@keyframes pulse{
-  50%{transform:rotate(-45deg) scale(1.05);}
+@keyframes breakChain{
+  0%{opacity:1; transform:rotate(0);}
+  50%{opacity:0.5; transform:rotate(30deg);}
+  100%{opacity:0; transform:rotate(60deg);}
 }
 
 /* LETTER PAGE */
@@ -166,28 +191,13 @@ body{
   cursor:pointer;
 }
 
-.letter-header{
-  text-align:center;
-  margin-bottom:1.2rem;
-}
-
-.letter-header h2{
-  font-size:1.5rem;
-  font-weight:800;
-}
-
-.letter-header p{
-  font-size:0.9rem;
-  margin-top:0.2rem;
-}
-
-/* MOBILE ADJUSTMENTS */
+/* MOBILE */
 @media(max-width:380px){
   .grid{grid-template-columns:1fr;}
   .card{font-size:0.95rem;}
-  .heart{width:80px;height:70px;}
-  .heart:before,.heart:after{width:80px;height:70px;}
-  .ribbon{width:100px;height:22px;font-size:0.75rem;}
+  .heart{width:120px;height:110px;}
+  .heart:before,.heart:after{width:120px;height:110px;}
+  .chain{width:150px;height:40px;top:-15px;left:-15px;}
 }
 </style>
 </head>
@@ -201,8 +211,13 @@ body{
   <button onclick="show('grid')">Open Your Letters</button>
 </section>
 
-<!-- GRID -->
+<!-- GRID PAGE -->
 <section id="grid" class="screen hidden">
+  <div class="grid-header">
+    <h2>THESE ARE ALL FOR YOU GORGEOUS</h2>
+    <p>open whenever your ready</p>
+  </div>
+
   <div class="grid">
     <div class="card" onclick="openLetter(1)">💌 My Valentine</div>
     <div class="card" onclick="openLetter(2)">💗 Madly Yours</div>
@@ -210,12 +225,15 @@ body{
     <div class="card" onclick="openLetter(4)">🕊️ Reassurance</div>
     <div class="card" onclick="openLetter(5)">😌 Flirty</div>
     <div class="card" onclick="openLetter(6)">🥹 Truth</div>
-    <div class="card" onclick="openLetter(7)" style="grid-column:span 2">🌱 Support</div>
+    <div class="card" onclick="openLetter(7)">🌱 Support</div>
   </div>
 
   <div class="heart-wrap">
-    <div id="secretHeart" onclick="openSecret()">
-      <div class="heart"><div class="ribbon">LOCKED</div></div>
+    <div id="secretHeart" onclick="unlockSecret()">
+      <div class="heart"></div>
+      <div class="chain" id="chain">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
     </div>
   </div>
 </section>
@@ -224,10 +242,6 @@ body{
 <section id="l1" class="screen hidden">
   <div class="page">
     <div class="back" onclick="back()">← Back</div>
-    <div class="letter-header">
-      <h2>THESE ARE ALL FOR YOU GORGEOUS</h2>
-      <p>open whenever your ready</p>
-    </div>
     My pretty wife, happy Valentine’s Day...
   </div>
 </section>
@@ -235,10 +249,6 @@ body{
 <section id="l2" class="screen hidden">
   <div class="page">
     <div class="back" onclick="back()">← Back</div>
-    <div class="letter-header">
-      <h2>THESE ARE ALL FOR YOU GORGEOUS</h2>
-      <p>open whenever your ready</p>
-    </div>
     I’m deeply, stupidly, permanently in love with you.
   </div>
 </section>
@@ -246,10 +256,6 @@ body{
 <section id="l3" class="screen hidden">
   <div class="page">
     <div class="back" onclick="back()">← Back</div>
-    <div class="letter-header">
-      <h2>THESE ARE ALL FOR YOU GORGEOUS</h2>
-      <p>open whenever your ready</p>
-    </div>
     You are one of the biggest reasons I have goals.
   </div>
 </section>
@@ -257,10 +263,6 @@ body{
 <section id="l4" class="screen hidden">
   <div class="page">
     <div class="back" onclick="back()">← Back</div>
-    <div class="letter-header">
-      <h2>THESE ARE ALL FOR YOU GORGEOUS</h2>
-      <p>open whenever your ready</p>
-    </div>
     What I want is you. Only you.
   </div>
 </section>
@@ -268,10 +270,6 @@ body{
 <section id="l5" class="screen hidden">
   <div class="page">
     <div class="back" onclick="back()">← Back</div>
-    <div class="letter-header">
-      <h2>THESE ARE ALL FOR YOU GORGEOUS</h2>
-      <p>open whenever your ready</p>
-    </div>
     You’re unfairly pretty.
   </div>
 </section>
@@ -279,10 +277,6 @@ body{
 <section id="l6" class="screen hidden">
   <div class="page">
     <div class="back" onclick="back()">← Back</div>
-    <div class="letter-header">
-      <h2>THESE ARE ALL FOR YOU GORGEOUS</h2>
-      <p>open whenever your ready</p>
-    </div>
     You’ve become my comfort.
   </div>
 </section>
@@ -290,22 +284,14 @@ body{
 <section id="l7" class="screen hidden">
   <div class="page">
     <div class="back" onclick="back()">← Back</div>
-    <div class="letter-header">
-      <h2>THESE ARE ALL FOR YOU GORGEOUS</h2>
-      <p>open whenever your ready</p>
-    </div>
     I want to see you win in life.
   </div>
 </section>
 
-<!-- SECRET -->
+<!-- SECRET LETTER -->
 <section id="secret" class="screen hidden">
   <div class="page">
     <div class="back" onclick="back()">← Back</div>
-    <div class="letter-header">
-      <h2>THESE ARE ALL FOR YOU GORGEOUS</h2>
-      <p>open whenever your ready</p>
-    </div>
     You have my heart. All of it.
   </div>
 </section>
@@ -313,6 +299,7 @@ body{
 <script>
 let current="intro";
 let read=[false,false,false,false,false,false,false];
+let secretUnlocked=false;
 
 function show(id){
   document.getElementById(current).classList.add("hidden");
@@ -326,7 +313,6 @@ function openLetter(n){
   document.querySelectorAll(".card")[n-1].classList.add("read");
   updateGlow();
   show("l"+n);
-  checkUnlock();
 }
 
 function back(){show("grid")}
@@ -339,18 +325,15 @@ function updateGlow(){
   });
 }
 
-function checkUnlock(){
-  if(read.every(v=>v)){
-    document.getElementById("secretHeart").classList.add("unlocked");
-  }
-}
-
-function openSecret(){
-  if(document.getElementById("secretHeart").classList.contains("unlocked")){
-    show("secret");
+function unlockSecret(){
+  // only unlock after all letters read
+  if(read.every(v=>v) && !secretUnlocked){
+    secretUnlocked=true;
+    const chain=document.getElementById("chain");
+    chain.classList.add("break");
+    setTimeout(()=>show("secret"),1000);
   }
 }
 </script>
-
 </body>
 </html>
