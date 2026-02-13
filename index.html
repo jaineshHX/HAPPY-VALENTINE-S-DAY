@@ -3,267 +3,278 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Valentine 2026</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
-
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Caveat&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<title>For My Pretty Lady 💗</title>
 
 <style>
+
 body{
 margin:0;
-font-family:'Plus Jakarta Sans';
-background:#f8f6f6;
-overflow:hidden;
+background:#fff;
+font-family:'Poppins',sans-serif;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
 }
 
-/* TOP MESSAGE */
+/* ---------------- TOP MESSAGE ---------------- */
+
 #topMessage{
 position:fixed;
-top:12px;
+top:15px;
 left:50%;
 transform:translateX(-50%);
-background:rgba(255,182,193,0.85);
-padding:8px 16px;
+background:rgba(255,182,193,0.9);
+padding:10px 18px;
 border-radius:999px;
-font-size:0.75rem;
+font-size:.75rem;
 color:#ef3966;
 font-weight:600;
-box-shadow:0 0 15px rgba(239,57,102,.4);
+box-shadow:0 0 20px rgba(239,57,102,.4);
+opacity:0;
+animation: topFade 10s ease forwards;
 z-index:999;
 text-align:center;
 max-width:90%;
 }
 
-/* SCREENS */
-.screen{
-position:absolute;
-inset:0;
-display:flex;
-justify-content:center;
-align-items:center;
-transition:.6s;
+@keyframes topFade{
+0%{opacity:0}
+10%{opacity:1}
+80%{opacity:1}
+100%{opacity:0}
 }
-.hidden{opacity:0;pointer-events:none;transform:scale(.96)}
 
-/* GRID */
+/* ---------------- CONTAINER ---------------- */
+
+.container{
+text-align:center;
+}
+
+/* ---------------- LETTER GRID ---------------- */
+
 .grid{
 display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:1rem;
-max-width:420px;
-width:100%;
-padding:1rem;
+grid-template-columns:repeat(2,120px);
+gap:18px;
+justify-content:center;
+margin-bottom:20px;
 }
 
 .card{
-background:#ef3966;
-color:white;
-aspect-ratio:1/1;
+background:#ffd1df;
 border-radius:18px;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-font-weight:bold;
-box-shadow:0 12px 25px rgba(239,57,102,.4);
+padding:22px 10px;
+font-size:14px;
 cursor:pointer;
+box-shadow:0 10px 30px rgba(255,105,135,.4);
+transition:.4s;
 position:relative;
-transition:.3s;
 }
 
-.card:active{transform:scale(.95)}
+.card:hover{
+transform:scale(1.05);
+}
+
+/* READ STYLE */
 
 .card.read{
 background:#ffd6e3;
 color:#ef3966;
+box-shadow:
+0 0 15px rgba(239,57,102,.6),
+0 0 35px rgba(239,57,102,.5),
+0 0 60px rgba(239,57,102,.4);
 }
+
+/* CHECKMARK */
 
 .card.read::after{
 content:"✓";
 position:absolute;
-top:8px;
+top:6px;
 right:10px;
-font-size:1rem;
-color:#ef3966;
+font-size:14px;
+color:#ff2f6f;
 }
 
-/* LETTER PAGE */
-.page{
-max-width:500px;
-padding:2rem;
-font-family:'Caveat';
-font-size:1.4rem;
+/* ---------------- HEART ---------------- */
+
+.heart-wrap{
+display:flex;
+justify-content:center;
+}
+
+.heart{
+width:120px;
+height:120px;
+background:#ff2f6f;
+position:relative;
+transform:rotate(-45deg);
+cursor:pointer;
+box-shadow:0 0 40px rgba(255,47,111,.8);
+transition:1s;
+}
+
+.heart:before,
+.heart:after{
+content:"";
+width:120px;
+height:120px;
+background:#ff2f6f;
+border-radius:50%;
+position:absolute;
+}
+
+.heart:before{top:-60px;left:0}
+.heart:after{left:60px;top:0}
+
+/* RIBBON */
+
+.ribbon{
+position:absolute;
+width:140px;
+height:20px;
+background:red;
+top:50%;
+left:-10px;
+transform:rotate(45deg);
+transition:1s;
+}
+
+/* UNLOCKED */
+
+.heart.unlocked{
+box-shadow:
+0 0 40px rgba(255,47,111,1),
+0 0 80px rgba(255,47,111,.9);
+}
+
+.heart.unlocked .ribbon{
+opacity:0;
+transform:scale(0);
+}
+
+/* ---------------- LETTER MODALS ---------------- */
+
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.6);
+display:none;
+justify-content:center;
+align-items:center;
+}
+
+.box{
+background:#ffe4ef;
+padding:25px;
+border-radius:20px;
+width:80%;
+max-width:320px;
 animation:fade .6s;
 }
 
 @keyframes fade{
-from{opacity:0;transform:translateY(10px)}
-to{opacity:1;transform:translateY(0)}
+from{opacity:0;transform:scale(.8)}
+to{opacity:1;transform:scale(1)}
 }
 
-.back{color:#ef3966;font-weight:bold;margin-bottom:1rem}
+/* ---------------- BUTTON ---------------- */
 
-/* HEART */
-.heart-wrap{
-grid-column:span 2;
-display:flex;
-justify-content:center;
-margin-top:2.5rem;
-}
-
-.heart{
-width:140px;
-height:130px;
-background:#ef3966;
-position:relative;
-transform:rotate(-45deg);
-}
-
-.heart:before,.heart:after{
-content:'';
-position:absolute;
-width:140px;
-height:130px;
-background:#ef3966;
-border-radius:50%;
-}
-
-.heart:before{top:-70px}
-.heart:after{left:70px}
-
-.ribbon{
-position:absolute;
-width:160px;
-height:30px;
-background:#c2173a;
-top:45px;
-left:-10px;
-transform:rotate(45deg);
-transition:.6s;
-display:flex;
-align-items:center;
-justify-content:center;
+button{
+margin-top:10px;
+padding:8px 18px;
+border:none;
+border-radius:20px;
+background:#ff2f6f;
 color:white;
 font-weight:bold;
+cursor:pointer;
 }
 
-.unlocked .ribbon{
-transform:rotate(45deg) translateX(220px);
-opacity:0;
+/* ---------------- SECRET ---------------- */
+
+#secretText{
+display:none;
+font-size:18px;
+color:#ff2f6f;
+margin-top:20px;
+animation:fade 1s infinite alternate;
 }
 
-.unlocked .heart{
-animation:pulse 1.5s infinite;
-box-shadow:0 0 20px #ef3966,0 0 40px #ef3966;
-}
-
-@keyframes pulse{
-50%{transform:rotate(-45deg) scale(1.05)}
-}
-
-/* AUDIO */
-audio{display:none}
 </style>
 </head>
 
 <body>
 
-<!-- TOP MESSAGE -->
 <div id="topMessage">
 im sorry baby for being late with this but all these are for you muh pretty lady 💗
 </div>
 
-<audio id="flip" src="https://assets.mixkit.co/sfx/preview/mixkit-page-flip-1104.mp3"></audio>
+<div class="container">
 
-<!-- INTRO -->
-<section id="intro" class="screen">
-<div style="text-align:center">
-<h1 style="font-size:3rem;color:#ef3966">Happy Valentine’s Day 💖</h1>
-<button onclick="show('grid')" style="padding:1rem 2rem;border-radius:999px;background:#ef3966;color:white;font-weight:bold">
-Open Your Letters
-</button>
-</div>
-</section>
-
-<!-- GRID -->
-<section id="grid" class="screen hidden">
 <div class="grid">
-
 <div class="card" onclick="openLetter(1)">💌 My Valentine</div>
-<div class="card" onclick="openLetter(2)">💗 Madly Yours</div>
-
+<div class="card" onclick="openLetter(2)">❤️ Madly Yours</div>
 <div class="card" onclick="openLetter(3)">🤍 Promise</div>
-<div class="card" onclick="openLetter(4)">🕊️ Reassurance</div>
-
-<div class="card" onclick="openLetter(5)">😌 Flirty</div>
-<div class="card" onclick="openLetter(6)">🥹 Truth</div>
-
-<div style="grid-column:span 2;display:flex;justify-content:center;">
-<div class="card" style="width:48%" onclick="openLetter(7)">🌱 Support</div>
+<div class="card" onclick="openLetter(4)">🕊 Reassurance</div>
+<div class="card" onclick="openLetter(5)">😉 Flirty</div>
+<div class="card" onclick="openLetter(6)">❣ Truth</div>
+<div class="card" onclick="openLetter(7)">🌹 Support</div>
 </div>
 
 <div class="heart-wrap">
-<div id="secretHeart" onclick="openSecret()">
-<div class="heart"><div class="ribbon">LOCKED</div></div>
+<div class="heart" id="heart" onclick="openSecret()">
+<div class="ribbon"></div>
 </div>
 </div>
 
+<div id="secretText">You unlocked my heart forever ❤️</div>
+
 </div>
-</section>
 
-<!-- LETTERS -->
-<section id="l1" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>My pretty wife, happy Valentine’s Day...</div></section>
-<section id="l2" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>I’m deeply, stupidly, permanently in love with you.</div></section>
-<section id="l3" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>You are one of the biggest reasons I have goals.</div></section>
-<section id="l4" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>What I want is you. Only you.</div></section>
-<section id="l5" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>You’re unfairly pretty.</div></section>
-<section id="l6" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>You’ve become my comfort.</div></section>
-<section id="l7" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>I want to see you win in life.</div></section>
+<!-- LETTER POPUPS -->
 
-<!-- SECRET -->
-<section id="secret" class="screen hidden"><div class="page"><div class="back" onclick="back()">← Back</div>You have my heart. All of it.</div></section>
+<div class="modal" id="l1"><div class="box">Happy Valentine’s Day my love 💖<br><button onclick="closeAll()">Close</button></div></div>
+<div class="modal" id="l2"><div class="box">I am madly addicted to you 😭❤️<br><button onclick="closeAll()">Close</button></div></div>
+<div class="modal" id="l3"><div class="box">I promise you my forever 🤞💍<br><button onclick="closeAll()">Close</button></div></div>
+<div class="modal" id="l4"><div class="box">I will always protect your heart 🛡️<br><button onclick="closeAll()">Close</button></div></div>
+<div class="modal" id="l5"><div class="box">You drive me crazy in the best way 😘<br><button onclick="closeAll()">Close</button></div></div>
+<div class="modal" id="l6"><div class="box">You are my only truth ❤️<br><button onclick="closeAll()">Close</button></div></div>
+<div class="modal" id="l7"><div class="box">I’ll always support you baby 🤍<br><button onclick="closeAll()">Close</button></div></div>
 
 <script>
-let current="intro";
+
 let read=[false,false,false,false,false,false,false];
 
-function show(id){
-document.getElementById(current).classList.add("hidden");
-document.getElementById(id).classList.remove("hidden");
-current=id;
-}
+const flipSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-page-turn-1100.mp3");
 
 function openLetter(n){
-document.getElementById("flip").play();
 read[n-1]=true;
 document.querySelectorAll(".card")[n-1].classList.add("read");
-updateGlow();
-show("l"+n);
+flipSound.play();
+document.getElementById("l"+n).style.display="flex";
 checkUnlock();
 }
 
-function back(){show("grid")}
-
-function updateGlow(){
-let count=read.filter(v=>v).length;
-document.querySelectorAll(".card.read").forEach(c=>{
-c.style.boxShadow=`0 0 ${15+count*5}px rgba(239,57,102,.6),
-0 0 ${30+count*10}px rgba(239,57,102,.5)`;
-});
+function closeAll(){
+document.querySelectorAll(".modal").forEach(m=>m.style.display="none");
 }
 
 function checkUnlock(){
 if(read.every(v=>v)){
-document.getElementById("secretHeart").classList.add("unlocked");
+document.getElementById("heart").classList.add("unlocked");
+document.getElementById("secretText").style.display="block";
 }
 }
 
 function openSecret(){
-if(document.getElementById("secretHeart").classList.contains("unlocked")){
-show("secret");
+if(read.every(v=>v)){
+alert("You own my heart forever 💗");
 }
 }
+
 </script>
 
 </body>
